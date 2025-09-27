@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+
+<head th:replace="fragments/header.html :: html-head(title='Managers Secured Area')"></head>
+
+<body>
+    <nav th:replace="fragments/links :: nav.navigation-links"></nav>
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Manager Header -->
+                <div class="hero-section fade-in">
+                    <h1 class="text-gradient">👑 Manager Dashboard</h1>
+                    <p class="lead">Welcome to the Manager's Secured Area!</p>
+                </div>
+
+                <!-- User Info Card -->
+                <div class="game-info-card fade-in-up">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="info-item">
+                                <h5>
+                                    <i class="fas fa-user me-2 text-primary"></i>
+                                    Username
+                                </h5>
+                                <p class="mb-0 fw-bold" sec:authentication="name">User</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="info-item">
+                                <h5>
+                                    <i class="fas fa-crown me-2 text-warning"></i>
+                                    Manager Role
+                                </h5>
+                                <p class="mb-0 fw-bold" sec:authentication="principal.authorities">Role</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manager Capabilities -->
+                <div class="game-info-card fade-in-up">
+                    <h3 class="text-gradient mb-4">
+                        <i class="fas fa-tasks me-2"></i>
+                        Manager Capabilities
+                    </h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="info-item">
+                                <h6 class="text-primary">
+                                    <i class="fas fa-plus-circle me-2"></i>
+                                    Add Board Games
+                                </h6>
+                                <p class="mb-0 text-muted">Add new board games to the community database</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="info-item">
+                                <h6 class="text-primary">
+                                    <i class="fas fa-edit me-2"></i>
+                                    Write Reviews
+                                </h6>
+                                <p class="mb-0 text-muted">Write detailed reviews for board games</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="info-item">
+                                <h6 class="text-primary">
+                                    <i class="fas fa-pencil-alt me-2"></i>
+                                    Edit Reviews
+                                </h6>
+                                <p class="mb-0 text-muted">Modify existing board game reviews</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="info-item">
+                                <h6 class="text-primary">
+                                    <i class="fas fa-trash me-2"></i>
+                                    Delete Reviews
+                                </h6>
+                                <p class="mb-0 text-muted">Remove inappropriate or outdated reviews</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="text-center mt-5 fade-in">
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <a href="#" th:href="@{/secured}" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Back to Gateway
+                        </a>
+                        <a href="#" th:href="@{/}" class="btn btn-outline-primary">
+                            <i class="fas fa-home me-2"></i>
+                            Go Home
+                        </a>
+                        <form action="#" th:action="@{/logout}" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-outline-danger">
+                                <i class="fas fa-sign-out-alt me-2"></i>
+                                Logout
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="b-example-divider border border-light"></div>
+    <div th:include="fragments/links :: div.bottom-links"></div>
+    <div th:replace="fragments/footer.html :: page-footer"></div>
+</body>
+
+</html>

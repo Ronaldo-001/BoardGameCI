@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header.html :: html-head(title=|${boardgame.name}|)"></head>
+
+<body>
+    <nav th:replace="fragments/links :: nav.navigation-links"></nav>
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Game Header -->
+                <div class="text-center mb-5 fade-in">
+                    <div class="mb-4">
+                        <i class="fas fa-dice-d20 fa-4x text-primary"></i>
+                    </div>
+                    <h1 class="text-gradient" th:text="${boardgame.name}">Game Name</h1>
+                    <p class="lead text-muted" th:text="|${boardgame.gameType}|">Game Type</p>
+                </div>
+
+                <!-- Game Information Card -->
+                <div class="game-info-card fade-in-up">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="info-item">
+                                <h5>
+                                    <i class="fas fa-signal me-2 text-primary"></i>
+                                    Difficulty Level
+                                </h5>
+                                <div class="d-flex align-items-center mt-2">
+                                    <div class="me-3">
+                                        <span class="badge bg-primary fs-6" th:text="${boardgame.level}">Level</span>
+                                    </div>
+                                    <small class="text-muted" title="1 - Very easy, 2 - Easy, 3 - Medium, 4 - Difficult, 5 - Very Difficult">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Hover for difficulty guide
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <div class="info-item">
+                                <h5>
+                                    <i class="fas fa-users me-2 text-primary"></i>
+                                    Player Count
+                                </h5>
+                                <div class="mt-2">
+                                    <span class="badge bg-secondary fs-6" th:unless="${boardgame.maxPlayers} == '+'" 
+                                          th:text="|${boardgame.minPlayers} - ${boardgame.maxPlayers} players|">Players</span>
+                                    <span class="badge bg-secondary fs-6" th:if="${boardgame.maxPlayers} == '+'" 
+                                          th:text="|${boardgame.minPlayers}+ players|">Players</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <div class="info-item">
+                                <h5>
+                                    <i class="fas fa-tags me-2 text-primary"></i>
+                                    Game Category
+                                </h5>
+                                <div class="mt-2">
+                                    <span class="badge bg-info fs-6" th:text="${boardgame.gameType}">Game Type</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <div class="info-item">
+                                <h5>
+                                    <i class="fas fa-star me-2 text-primary"></i>
+                                    Community Reviews
+                                </h5>
+                                <div class="mt-2">
+                                    <a href="#" th:href="@{|/${boardgame.id}/reviews|}" class="btn btn-outline-primary">
+                                        <i class="fas fa-comments me-2"></i>
+                                        View Reviews
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="text-center mt-5 fade-in">
+                    <div sec:authorize="!hasRole('ROLE_USER')">
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <strong>Want to add games or write reviews?</strong>
+                        </div>
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <a href="#" th:href="@{/login}" class="btn btn-primary">
+                                <i class="fas fa-sign-in-alt me-2"></i>
+                                Login
+                            </a>
+                            <a href="#" th:href="@{/newUser}" class="btn btn-outline-primary">
+                                <i class="fas fa-user-plus me-2"></i>
+                                Sign Up
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div sec:authorize="hasRole('ROLE_USER') || hasRole('ROLE_MANAGER')">
+                        <div class="d-flex justify-content-center gap-3 flex-wrap">
+                            <a href="#" th:href="@{/secured/addBoardGame}" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>
+                                Add New Game
+                            </a>
+                            <a href="#" th:href="@{/}" class="btn btn-outline-secondary">
+                                <i class="fas fa-home me-2"></i>
+                                Back to Home
+                            </a>
+                            <form action="#" th:action="@{/logout}" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-outline-danger">
+                                    <i class="fas fa-sign-out-alt me-2"></i>
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="b-example-divider border border-light"></div>
+    <div th:include="fragments/links :: div.bottom-links"></div>
+    <div th:replace="fragments/footer.html :: page-footer"></div>
+</body>
+
+</html>

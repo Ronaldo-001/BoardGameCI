@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header.html :: html-head(title='Add a Board Game')"></head>
+
+<body>
+    <nav th:replace="fragments/links :: nav.navigation-links"></nav>
+    <main class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Header Section -->
+                <div class="text-center mb-5 fade-in">
+                    <div class="mb-4">
+                        <i class="fas fa-plus-circle fa-4x text-primary"></i>
+                    </div>
+                    <h1 class="text-gradient">Add New Board Game</h1>
+                    <p class="lead text-muted">Share your favorite board game with the community</p>
+                </div>
+
+                <!-- Form Card -->
+                <div class="game-info-card fade-in-up">
+                    <div id="error-boardgame" class="error-boardgame mb-4"></div>
+
+                    <form action="#" th:action="@{/boardgameAdded}" method="POST" th:object="${boardgame}"
+                        onsubmit="return verifyBoardGame()">
+                        
+                        <div class="mb-4">
+                            <label for="gameName" class="form-label">
+                                <i class="fas fa-gamepad me-2"></i>
+                                Board Game Name
+                            </label>
+                            <input type="text" name="name" th:field="*{name}" class="form-control" id="gameName"
+                                placeholder="Enter the name of the board game" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="myRange" class="form-label">
+                                <i class="fas fa-signal me-2"></i>
+                                Difficulty Level
+                                <small class="text-muted ms-2" title="1 - very easy, 2 - easy, 3 - medium, 4 - difficult, 5 - very difficult">
+                                    <i class="fas fa-info-circle"></i>
+                                </small>
+                            </label>
+                            <div class="d-flex align-items-center">
+                                <input type="range" name="level" min="1" max="5" step="1" th:field="*{level}" 
+                                       id="myRange" class="form-range me-3" oninput="this.nextElementSibling.value = this.value">
+                                <output class="badge bg-primary fs-6">1</output>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label for="minPlayers" class="form-label">
+                                    <i class="fas fa-user me-2"></i>
+                                    Minimum Players
+                                </label>
+                                <select id="minPlayers" name="minPlayers" th:field="*{minPlayers}" class="form-select">
+                                    <option value="1">1 Player</option>
+                                    <option value="2">2 Players</option>
+                                    <option value="3">3 Players</option>
+                                    <option value="4">4 Players</option>
+                                    <option value="5">5 Players</option>
+                                </select>
+                            </div>
+                            
+                            <div class="col-md-6 mb-4">
+                                <label for="maxPlayers" class="form-label">
+                                    <i class="fas fa-users me-2"></i>
+                                    Maximum Players
+                                </label>
+                                <select id="maxPlayers" name="maxPlayers" th:field="*{maxPlayers}" class="form-select">
+                                    <option value="1">1 Player</option>
+                                    <option value="2">2 Players</option>
+                                    <option value="3">3 Players</option>
+                                    <option value="4">4 Players</option>
+                                    <option value="5">5 Players</option>
+                                    <option value="6">6 Players</option>
+                                    <option value="7">7 Players</option>
+                                    <option value="8">8 Players</option>
+                                    <option value="9">9 Players</option>
+                                    <option value="+">10+ Players</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="gameType" class="form-label">
+                                <i class="fas fa-tags me-2"></i>
+                                Game Type
+                            </label>
+                            <select id="gameType" name="gameType" th:field="*{gameType}" class="form-select">
+                                <option value="Party Game">🎉 Party Game</option>
+                                <option value="Trivia Game">🧠 Trivia Game</option>
+                                <option value="Strategy Game">♟️ Strategy Game</option>
+                            </select>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-plus me-2"></i>
+                                Add Board Game
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Back Button -->
+                <div class="text-center mt-4 fade-in">
+                    <a href="#" th:href="@{/}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="b-example-divider border border-light"></div>
+    <div th:include="fragments/links :: div.bottom-links"></div>
+    <div th:replace="fragments/footer.html :: page-footer"></div>
+</body>
+
+</html>
